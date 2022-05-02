@@ -7,6 +7,9 @@ use Jimmyjs\ReportGenerator\ReportGenerator;
 
 class PdfReport extends ReportGenerator
 {
+    /** @var \Closure */
+    protected $pdfCallback;
+
 	public function make()
 	{
 		$headers = $this->headers;
@@ -43,8 +46,22 @@ class PdfReport extends ReportGenerator
 			}
 		}
 
+        if ($callback = $this->pdfCallback) {
+            $callback($pdf);
+        }
+
 		return $pdf->loadHTML($html)->setPaper($this->paper, $orientation);
 	}
+
+    /**
+     * @param \Closure $callback
+     *
+     * @return void
+     */
+    public function configPdf(\Closure $callback): void
+    {
+        $this->pdfCallback = $callback;
+    }
 
 	public function stream()
 	{
