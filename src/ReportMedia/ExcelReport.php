@@ -7,8 +7,9 @@ use Illuminate\Contracts\View\View;
 use Jimmyjs\ReportGenerator\ReportGenerator;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class ExportView implements FromView
+class ExportView implements FromView, ShouldAutoSize
 {
     use Exportable;
 
